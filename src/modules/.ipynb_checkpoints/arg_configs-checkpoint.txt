@@ -1,0 +1,14 @@
+--EXE_MODE=RTL_MODE
+--N=64
+--QAM_MODE=16
+--N_OFDM=4
+--PILOT_MODE=ZEROS
+--N_FRAMES=100
+--SNR=30
+--TX_INPUT_QAM_FILE=/home/xilinx/jupyter_notebooks/badjerry_ofdm_py/dats/rtl_input/tx_input_qam.txt
+--TX_OUTPUT_QAM_NO_PILOT_FILE=/home/xilinx/jupyter_notebooks/badjerry_ofdm_py/dats/rtl_input/tx_output_qam_no_pilot.txt
+--TX_OUTPUT_QAM_PILOT_FILE=/home/xilinx/jupyter_notebooks/badjerry_ofdm_py/dats/rtl_input/tx_output_qam_pilot.txt
+--TX_OUTPUT_SINGLE_FRAME_FILE=/home/xilinx/jupyter_notebooks/badjerry_ofdm_py/dats/rtl_input/single_frame.txt
+--TX_OUTPUT_FILE=/home/xilinx/work/test_AXI/2024_2_26test/rtl_test_input.txt
+--RTL_OUTPUT_I_FILE=/home/xilinx/work/test_AXI/2024_2_26test/rtl_output_I.txt
+--RTL_OUTPUT_Q_FILE=/home/xilinx/work/test_AXI/2024_2_26test/rtl_output_Q.txt
