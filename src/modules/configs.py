@@ -1,5 +1,6 @@
 import numpy as np
 import argparse
+import sig_process_funcs as sig_proc_funcs
 
 class ofdm_config:
 
@@ -79,9 +80,9 @@ class ofdm_config:
     pilot_seq = None
 
 #GAIN
-    QAM_GAIN = 32767
+    QAM_GAIN = 65536 * 2
     LLTF_GAIN = 30000
-    TRAINING_SEQ_GAIN = 65536
+    TRAINING_SEQ_GAIN = 65536 * 2
     PILOT_GAIN = 32767
 
 #QAM MAP
@@ -141,7 +142,15 @@ class ofdm_config:
             self.train_seq_cp = self.train_seq_ifft[self.N-self.CP_LEN:self.N]
             self.train_symb = np.concatenate((self.train_seq_cp,self.train_seq_ifft))
             self.train_symbx2 = np.concatenate((self.train_symb,self.train_symb))
-
+        elif(self.N == 2048):
+            self.N_TRAINING_SEQ =2 
+            self.TRAINING_SEQ_LEN = 2*(self.CP_LEN + self.N)
+            self.train_seq = np.concatenate((np.ones(1),sig_proc_funcs.generate_m_sequence(11))) * self.TRAINING_SEQ_GAIN
+            print("self-training_seq_len = ",len(self.train_seq))
+            self.train_seq_ifft = np.fft.ifft((self.train_seq ),self.N)
+            self.train_seq_cp = self.train_seq_ifft[self.N-self.CP_LEN:self.N]
+            self.train_symb = np.concatenate((self.train_seq_cp,self.train_seq_ifft))
+            self.train_symbx2 = np.concatenate((self.train_symb,self.train_symb))
         # QAM_MODE
         if args.QAM_MODE is not None:
             self.QAM_MODE = args.QAM_MODE
@@ -209,7 +218,6 @@ class ofdm_config:
                 self.N_DATA_SC = 52
                 self.N_PILOT_SC = 0
                 self.N_GUARD_SC = 12
-
                 self.OFDM_GUARD_INDEX = np.array([0,1,2,3,4,5,32,59,60,61,62,63])
                 self.OFDM_DATA_INDEX = np.concatenate((np.arange(start=6, stop=32),np.arange(start=33, stop=59)))
                 self.OFDM_SOLID_INDEX = np.concatenate((np.arange(start=6, stop=32),np.arange(start=33, stop=59)))
